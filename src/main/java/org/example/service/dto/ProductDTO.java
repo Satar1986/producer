@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class ProductDTO {
+    private String externalId;
     private String client_id;
     private String name_account;
     private Double sum;

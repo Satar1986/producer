@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping()
 public class ProductController {
-
     private final ProductService productService;
-
     @PostMapping("/product")
     public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO) {
         String externalId = productService.createProduct(productDTO);
