@@ -3,9 +3,12 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
+
 import org.example.event.ProductEvent;
 
 import org.example.service.dto.ProductDTO;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -20,7 +23,8 @@ import java.util.concurrent.CompletableFuture;
 public class ProductServiceImpl implements ProductService {
 
     private final KafkaTemplate<String, ProductEvent> kafkaTemplate;
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final  Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
 
     @Override
     public String createProduct(ProductDTO productDTO) {
@@ -55,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
             record.headers().add("externalId", productDTO.getExternalId().getBytes());
 
             CompletableFuture<SendResult<String, ProductEvent>> future =
-                    kafkaTemplate.send(record).completable();
+                    kafkaTemplate.send(record);
             future.whenComplete((result, exeption) -> {
                 if (exeption != null) {
                     logger.error("Failed to send message: {}", exeption.getMessage());
@@ -63,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
                     logger.info("Successfully sent message: {}", result.getRecordMetadata());
                 }
             });
-            logger.info("Return: {}", ProductDTO.class.getSimpleName());
-            return ProductDTO.class.getSimpleName();
+            logger.info("Return: {}", productDTO.getExternalId());
+            return productDTO.getExternalId();
     }
 }
