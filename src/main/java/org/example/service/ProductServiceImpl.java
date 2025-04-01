@@ -2,9 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
-
 import org.example.event.ProductEvent;
-
 import org.example.service.dto.ProductDTO;
 import org.example.service.dto.ProductUpdateDTO;
 import org.slf4j.Logger;
