@@ -1,11 +1,15 @@
 package org.example.service.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class ProductDTO {
     private String client_id;
     private String name_account;

@@ -1,8 +1,5 @@
 server:
   port: 8082
-springdoc:
-  swagger-ui:
-    path: "/producer.html"
 spring:
   kafka:
     producer:
@@ -12,3 +9,9 @@ spring:
       properties:
         enable:
           idempotence: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/account
+    username: postgres
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
