@@ -1,12 +1,12 @@
 package org.example.service.dto;
-
 import lombok.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDTO {
+public class ProductUpdateDTO {
+    private String externalId;
     private String client_id;
     private String name_account;
     private Double sum;

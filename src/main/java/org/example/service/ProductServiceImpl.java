@@ -1,14 +1,12 @@
 package org.example.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import org.example.event.ProductEvent;
 
 import org.example.service.dto.ProductDTO;
-
-
+import org.example.service.dto.ProductUpdateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -25,13 +23,10 @@ public class ProductServiceImpl implements ProductService {
     private final KafkaTemplate<String, ProductEvent> kafkaTemplate;
     private static final  Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-
     @Override
     public String createProduct(ProductDTO productDTO) {
-        if (productDTO.getExternalId() == null) {
-                   productDTO.setExternalId(UUID.randomUUID().toString());
-               }
-        ProductEvent  productEvent = new ProductEvent(productDTO.getExternalId(),
+        String externalId = UUID.randomUUID().toString();
+        ProductEvent  productEvent = new ProductEvent(externalId,
                 productDTO.getClient_id(),
                 productDTO.getName_account(),
                 productDTO.getSum(),
@@ -53,11 +48,10 @@ public class ProductServiceImpl implements ProductService {
         );
         ProducerRecord<String, ProductEvent> record = new ProducerRecord<>(
                     "Account_bank",
-                    productDTO.getExternalId(),
+                    externalId,
                     productEvent
             );
-            record.headers().add("externalId", productDTO.getExternalId().getBytes());
-
+            record.headers().add("externalId", externalId.getBytes());
             CompletableFuture<SendResult<String, ProductEvent>> future =
                     kafkaTemplate.send(record);
             future.whenComplete((result, exeption) -> {
@@ -67,7 +61,48 @@ public class ProductServiceImpl implements ProductService {
                     logger.info("Successfully sent message: {}", result.getRecordMetadata());
                 }
             });
-            logger.info("Return: {}", productDTO.getExternalId());
-            return productDTO.getExternalId();
+            logger.info("Return: {}", externalId);
+            return externalId;
+    }
+    @Override
+    public String updateProduct(ProductUpdateDTO productUpdateDTO) {
+        ProductEvent productEvent = new ProductEvent(
+                productUpdateDTO.getExternalId(),
+                productUpdateDTO.getClient_id(),
+                productUpdateDTO.getName_account(),
+                productUpdateDTO.getSum(),
+                productUpdateDTO.getCurrency(),
+                productUpdateDTO.getInterest_rate(),
+                productUpdateDTO.getInterest_is_paid(),
+                productUpdateDTO.getMin_remainder(),
+                productUpdateDTO.getState_id(),
+                productUpdateDTO.getName_company(),
+                productUpdateDTO.getInn(),
+                productUpdateDTO.getKpp(),
+                productUpdateDTO.getOgrn(),
+                productUpdateDTO.getBusiness_address(),
+                productUpdateDTO.getAddress(),
+                productUpdateDTO.getRcbic(),
+                productUpdateDTO.getCorr_ass(),
+                productUpdateDTO.getAss(),
+                productUpdateDTO.getBank_name()
+        );
+        ProducerRecord<String, ProductEvent> record = new ProducerRecord<>(
+                "Account_bank",
+                productUpdateDTO.getExternalId(),
+                productEvent
+        );
+        record.headers().add("externalId", productUpdateDTO.getExternalId().getBytes());
+        CompletableFuture<SendResult<String, ProductEvent>> future =
+                kafkaTemplate.send(record);
+        future.whenComplete((result, exeption) -> {
+            if (exeption != null) {
+                logger.error("Failed to send message: {}", exeption.getMessage());
+            } else {
+                logger.info("Successfully sent message: {}", result.getRecordMetadata());
+            }
+        });
+        logger.info("Return: {}", productUpdateDTO.getExternalId());
+        return productUpdateDTO.getExternalId();
     }
 }
