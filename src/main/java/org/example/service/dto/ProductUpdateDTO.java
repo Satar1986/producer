@@ -22,7 +22,7 @@ public class ProductUpdateDTO {
     private String business_address;
     private String address;
     private Integer rcbic;
-    private Float corr_ass;
-    private Float ass;
+    private Double corr_ass;
+    private Double ass;
     private String bank_name;
 }
