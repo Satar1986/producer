@@ -7,22 +7,23 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductUpdateDTO {
     private String externalId;
-    private String client_id;
-    private String name_account;
+    private String clientId;
+    private String nameAccount;
     private Double sum;
     private String currency;
-    private Double interest_rate;
-    private String interest_is_paid;
-    private Double min_remainder;
-    private Integer state_id;
-    private String name_company;
+    private Double interestRate;
+    private String interestIsPaid;
+    private Double minRemainder;
+    private Integer stateId;
+    private String nameCompany;
     private Long inn;
     private Integer kpp;
     private Long ogrn;
-    private String business_address;
+    private String businessAddress;
     private String address;
     private Integer rcbic;
-    private Double corr_ass;
+    private Double corrAss;
     private Double ass;
-    private String bank_name;
+    private String bankName;
+    private Integer requisitesId;
 }

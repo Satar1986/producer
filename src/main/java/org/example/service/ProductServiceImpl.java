@@ -25,24 +25,25 @@ public class ProductServiceImpl implements ProductService {
     public String createProduct(ProductDTO productDTO) {
         String externalId = UUID.randomUUID().toString();
         ProductEvent  productEvent = new ProductEvent(externalId,
-                productDTO.getClient_id(),
-                productDTO.getName_account(),
+                productDTO.getClientId(),
+                productDTO.getNameAccount(),
                 productDTO.getSum(),
                 productDTO.getCurrency(),
-                productDTO.getInterest_rate(),
-                productDTO.getInterest_is_paid(),
-                productDTO.getMin_remainder(),
-                productDTO.getState_id(),
-                productDTO.getName_company(),
+                productDTO.getInterestRate(),
+                productDTO.getInterestIsPaid(),
+                productDTO.getMinRemainder(),
+                productDTO.getStateId(),
+                productDTO.getNameCompany(),
                 productDTO.getInn(),
                 productDTO.getKpp(),
                 productDTO.getOgrn(),
-                productDTO.getBusiness_address(),
+                productDTO.getBusinessAddress(),
                 productDTO.getAddress(),
                 productDTO.getRcbic(),
-                productDTO.getCorr_ass(),
+                productDTO.getCorrAss(),
                 productDTO.getAss(),
-                productDTO.getBank_name()
+                productDTO.getBankName(),
+                productDTO.getRequisitesId()
         );
         ProducerRecord<String, ProductEvent> record = new ProducerRecord<>(
                     "Account_bank",
@@ -66,24 +67,25 @@ public class ProductServiceImpl implements ProductService {
     public String updateProduct(ProductUpdateDTO productUpdateDTO) {
         ProductEvent productEvent = new ProductEvent(
                 productUpdateDTO.getExternalId(),
-                productUpdateDTO.getClient_id(),
-                productUpdateDTO.getName_account(),
+                productUpdateDTO.getClientId(),
+                productUpdateDTO.getNameAccount(),
                 productUpdateDTO.getSum(),
                 productUpdateDTO.getCurrency(),
-                productUpdateDTO.getInterest_rate(),
-                productUpdateDTO.getInterest_is_paid(),
-                productUpdateDTO.getMin_remainder(),
-                productUpdateDTO.getState_id(),
-                productUpdateDTO.getName_company(),
+                productUpdateDTO.getInterestRate(),
+                productUpdateDTO.getInterestIsPaid(),
+                productUpdateDTO.getMinRemainder(),
+                productUpdateDTO.getStateId(),
+                productUpdateDTO.getNameCompany(),
                 productUpdateDTO.getInn(),
                 productUpdateDTO.getKpp(),
                 productUpdateDTO.getOgrn(),
-                productUpdateDTO.getBusiness_address(),
+                productUpdateDTO.getBusinessAddress(),
                 productUpdateDTO.getAddress(),
                 productUpdateDTO.getRcbic(),
-                productUpdateDTO.getCorr_ass(),
+                productUpdateDTO.getCorrAss(),
                 productUpdateDTO.getAss(),
-                productUpdateDTO.getBank_name()
+                productUpdateDTO.getBankName(),
+                productUpdateDTO.getRequisitesId()
         );
         ProducerRecord<String, ProductEvent> record = new ProducerRecord<>(
                 "Account_bank",
