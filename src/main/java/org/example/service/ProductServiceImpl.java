@@ -53,9 +53,9 @@ public class ProductServiceImpl implements ProductService {
             record.headers().add("externalId", externalId.getBytes());
             CompletableFuture<SendResult<String, ProductEvent>> future =
                     kafkaTemplate.send(record);
-            future.whenComplete((result, exeption) -> {
-                if (exeption != null) {
-                    logger.error("Failed to send message: {}", exeption.getMessage());
+            future.whenComplete((result, exception) -> {
+                if (exception != null) {
+                    logger.error("Failed to send message: {}", exception.getMessage());
                 } else {
                     logger.info("Successfully sent message: {}", result.getRecordMetadata());
                 }
@@ -95,9 +95,9 @@ public class ProductServiceImpl implements ProductService {
         record.headers().add("externalId", productUpdateDTO.getExternalId().getBytes());
         CompletableFuture<SendResult<String, ProductEvent>> future =
                 kafkaTemplate.send(record);
-        future.whenComplete((result, exeption) -> {
-            if (exeption != null) {
-                logger.error("Failed to send message: {}", exeption.getMessage());
+        future.whenComplete((result, exception) -> {
+            if (exception != null) {
+                logger.error("Failed to send message: {}", exception.getMessage());
             } else {
                 logger.info("Successfully sent message: {}", result.getRecordMetadata());
             }
