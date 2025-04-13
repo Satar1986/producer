@@ -2,6 +2,8 @@ package org.example.service.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -22,8 +24,8 @@ public class ProductDTO {
     private String businessAddress;
     private String address;
     private Integer rcbic;
-    private Double corrAss;
-    private Double ass;
+    private BigDecimal corrAss;
+    private BigDecimal ass;
     private String bankName;
     private Integer requisitesId;
 }
