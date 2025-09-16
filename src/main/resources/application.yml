@@ -12,3 +12,5 @@ spring:
       properties:
         enable:
           idempotence: true
+      acks: all
+
